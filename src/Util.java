@@ -8,10 +8,6 @@ public class Util {
     private int idxProduto=0;
     private int idxFornecedor=0;
 
-
-
-
-
     public void menuPrincipal(){
     int opcao;
     String menu="1.cadastrar produto\n2.pesquisar produto por nome\n3.pesquisar fornecedor por cnpj\n4.finalizar";
@@ -43,7 +39,6 @@ public class Util {
         idxFornecedor ++;
         return fornecedor;
     }
-
     private void cadastrarProduto(){
     String nome;
     double valorUnitario;
@@ -61,7 +56,6 @@ public class Util {
     idxProduto++;
 
     }
-
     private void pesquisarProduto(){
         String nome=showInputDialog("Nome do produto");
         for(int i=0;i<idxProduto;i++){
@@ -74,10 +68,6 @@ public class Util {
             }
         }
     }
-
-
-
-
     private Fornecedor pesquisarFornecedor(){
         int cnpj=parseInt(showInputDialog("CNPJ do fornecedor"));
         for(int i=0;i<idxFornecedor;i++){
@@ -88,7 +78,6 @@ public class Util {
         showMessageDialog(null,cnpj+" nao cadastrado");
         return null;
     }
-
     private void pesquisar(){
         Fornecedor fornecedor=pesquisarFornecedor();
         String aux="";

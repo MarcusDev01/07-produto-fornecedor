@@ -17,7 +17,7 @@ public class Util {
     String menu="1.cadastrar produto\n2.pesquisar produto por nome\n3.pesquisar fornecedor por cnpj\n4.finalizar";
     do{
         opcao=parseInt(showInputDialog(menu));
-        if(opcao<1 || opcao<4){
+        if(opcao<1 || opcao>4){
         showMessageDialog(null,"opçao invalida");
         }else{
             switch (opcao){
@@ -28,11 +28,20 @@ public class Util {
                     pesquisarProduto();
                     break;
                 case 3:
-                    pesquisarFornecedor();
+                    pesquisar();
                     break;
             }
         }
     }while (opcao!=4);
+    }
+    private Fornecedor cadastrarFornecedor(){
+        Fornecedor fornecedor;
+        String nome=showInputDialog("Nome do fornecedor");
+        int cnpj=parseInt(showInputDialog("cnpj"));
+        fornecedor=new Fornecedor(nome,cnpj);
+        this.fornecedor[idxFornecedor]=fornecedor;
+        idxFornecedor ++;
+        return fornecedor;
     }
 
     private void cadastrarProduto(){
@@ -49,31 +58,43 @@ public class Util {
     valorUnitario=parseDouble(showInputDialog("valor unitario"));
     qtdEstoque=parseInt(showInputDialog("qtd em estoque"));
     produto[idxProduto]=new Produto(nome, qtdEstoque,valorUnitario, fornecedor);
+    idxProduto++;
 
     }
 
     private void pesquisarProduto(){
-
+        String nome=showInputDialog("Nome do produto");
+        for(int i=0;i<idxProduto;i++){
+            if(produto[i].getNome().equalsIgnoreCase(nome)){
+            showMessageDialog(null,"produto "+nome+" econtrado");
+            showMessageDialog(null,"valor R$ "+produto[i].getValor());
+            showMessageDialog(null,"fornecedor "+produto[i].getFornecedor().getNome());
+            }else{
+                showMessageDialog(null,"produto nao econtrador  ");
+            }
+        }
     }
 
 
-    private Fornecedor cadastrarFornecedor(){
-        Fornecedor fornecedor;
-        String nome=showInputDialog("Nome do fornecedor");
-        int cnpj=parseInt(showInputDialog("cnpj"));
-        fornecedor=new Fornecedor(nome,cnpj);
-        this.fornecedor[idxFornecedor]=fornecedor;
-        idxFornecedor ++;
-        return fornecedor;
-    }
+
 
     private Fornecedor pesquisarFornecedor(){
-        int cnpj=parseInt(showInputDialog("CNP do fornecedor"));
+        int cnpj=parseInt(showInputDialog("CNPJ do fornecedor"));
         for(int i=0;i<idxFornecedor;i++){
             if(fornecedor[i].getCnpj()==cnpj){
             return fornecedor[i];
             }
         }
+        showMessageDialog(null,cnpj+" nao cadastrado");
         return null;
+    }
+
+    private void pesquisar(){
+        Fornecedor fornecedor=pesquisarFornecedor();
+        String aux="";
+        if( fornecedor!= null)
+            aux = "Fornecedor:" + fornecedor.getNome() + "\n";
+            aux+="Fornecedor:"+fornecedor.getCnpj()+"\n";
+            showMessageDialog(null,aux);
     }
 }

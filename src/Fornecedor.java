@@ -17,10 +17,12 @@ public class Fornecedor {
     }
 
     public int getCnpj() {
+
         return cnpj;
     }
 
     public void setCnpj(int cnpj) {
+
         this.cnpj = cnpj;
     }
 }
